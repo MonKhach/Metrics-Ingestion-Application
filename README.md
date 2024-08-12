@@ -1,4 +1,4 @@
-# Task1
+# Metrics Ingestion Application
 
 Metrics Ingestion Application
 This repository contains a Python application that ingests user metrics data and stores it in a PostgreSQL database. The setup includes a Dockerfile for containerizing the application, a docker-compose.yml file to orchestrate the containers, and a Python script that handles the data ingestion.
