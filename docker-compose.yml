@@ -1,0 +1,48 @@
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: ./dockerfile
+    container_name: metrics_ingestion_app
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=adminMonica
+      - DATABASE_NAME=postgres
+    networks:
+      - app_net
+
+  db:
+    image: postgres:16.4
+    container_name: postgres_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=adminMonica
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - "C:/Program Files/PostgreSQL/16/data:/var/lib/postgresql/data"
+      - ./init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    networks:
+      - app_net
+
+  pgadmin:
+    image: dpage/pgadmin4:7.8
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'admin@admin.com'
+      PGADMIN_DEFAULT_PASSWORD: 'admin'
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - app_net
+
+networks:
+  app_net:
+    driver: bridge
