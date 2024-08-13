@@ -10,7 +10,7 @@ services:
     environment:
       - DATABASE_HOST=db
       - DATABASE_USER=postgres
-      - DATABASE_PASSWORD=adminMonica
+      - DATABASE_PASSWORD=#yourpassword
       - DATABASE_NAME=postgres
     networks:
       - app_net
